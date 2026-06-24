@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>EcoLoop AI — Smart Shopping. Smarter Planet.</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Syne:wght@700;800&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --green: #1D9E75;
+    --green-dark: #0F6E56;
+    --green-light: #E1F5EE;
+    --green-mid: #9FE1CB;
+    --amber: #EF9F27;
+    --blue: #378ADD;
+    --blue-light: #E6F1FB;
+    --text: #1a1a1a;
+    --text-muted: #6b7280;
+    --border: #e5e7eb;
+    --bg: #ffffff;
+    --bg-soft: #f9fafb;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    color: var(--text);
+    background: var(--bg);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 5%;
+    height: 60px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .nav-logo {
+    font-family: 'Syne', sans-serif;
+    font-size: 20px; font-weight: 800;
+    color: var(--text);
+    display: flex; align-items: center; gap: 8px;
+    text-decoration: none;
+  }
+  .nav-logo span { color: var(--green); }
+  .logo-dot {
+    width: 10px; height: 10px; border-radius: 50%;
+    background: var(--green); display: inline-block;
+  }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    text-decoration: none; font-size: 14px;
+    color: var(--text-muted); font-weight: 500;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--green); }
+  .nav-cta {
+    background: var(--green); color: white;
+    border: none; padding: 8px 20px;
+    border-radius: 8px; font-size: 14px;
+    font-weight: 500; cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+  .nav-cta:hover { background: var(--green-dark); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    padding: 100px 5% 60px;
+    text-align: center;
+    background: linear-gradient(180deg, #f0faf6 0%, #ffffff 100%);
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    width: 600px; height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #9FE1CB22 0%, transparent 70%);
+    top: -100px; right: -100px;
+    pointer-events: none;
+  }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: var(--green-light);
+    color: var(--green-dark);
+    padding: 6px 14px; border-radius: 20px;
+    font-size: 13px; font-weight: 500;
+    margin-bottom: 1.5rem;
+    border: 1px solid var(--green-mid);
+  }
+  .hero-badge::before { content: '🌱'; }
+  .hero h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(36px, 6vw, 72px);
+    font-weight: 800; line-height: 1.1;
+    letter-spacing: -1px;
+    margin-bottom: 1rem;
+    max-width: 800px;
+  }
+  .hero h1 .accent { color: var(--green); }
+  .hero p {
+    font-size: clamp(16px, 2vw, 20px);
+    color: var(--text-muted);
+    max-width: 540px;
+    margin: 0 auto 2rem;
+    line-height: 1.7;
+  }
+  .hero-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--green); color: white;
+    padding: 14px 32px; border-radius: 10px;
+    font-size: 15px; font-weight: 600;
+    text-decoration: none; border: none; cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+    font-family: 'Inter', sans-serif;
+  }
+  .btn-primary:hover { background: var(--green-dark); transform: translateY(-1px); }
+  .btn-secondary {
+    background: white; color: var(--text);
+    padding: 14px 32px; border-radius: 10px;
+    font-size: 15px; font-weight: 500;
+    text-decoration: none; border: 1px solid var(--border);
+    cursor: pointer; transition: border-color 0.2s, transform 0.15s;
+    font-family: 'Inter', sans-serif;
+  }
+  .btn-secondary:hover { border-color: var(--green); transform: translateY(-1px); }
+
+  .hero-stats {
+    display: flex; gap: 3rem; justify-content: center;
+    margin-top: 3.5rem; flex-wrap: wrap;
+  }
+  .stat { text-align: center; }
+  .stat-num {
+    font-family: 'Syne', sans-serif;
+    font-size: 28px; font-weight: 800;
+    color: var(--green);
+  }
+  .stat-label { font-size: 13px; color: var(--text-muted); margin-top: 2px; }
+
+  /* SECTIONS COMMON */
+  section { padding: 80px 5%; }
+  .section-tag {
+    display: inline-block;
+    font-size: 12px; font-weight: 600;
+    letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--green); margin-bottom: 12px;
+  }
+  .section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(26px, 4vw, 40px);
+    font-weight: 800; line-height: 1.2;
+    margin-bottom: 1rem;
+  }
+  .section-sub {
+    font-size: 16px; color: var(--text-muted);
+    max-width: 520px; line-height: 1.7;
+  }
+  .section-header { margin-bottom: 3rem; }
+
+  /* PROBLEM */
+  .problem { background: var(--bg-soft); }
+  .problem-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px; margin-top: 2.5rem;
+  }
+  .problem-card {
+    background: white; border: 1px solid var(--border);
+    border-radius: 14px; padding: 1.5rem;
+    position: relative; overflow: hidden;
+  }
+  .problem-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 3px; background: var(--green);
+  }
+  .problem-icon { font-size: 28px; margin-bottom: 12px; }
+  .problem-card h3 { font-size: 16px; font-weight: 600; margin-bottom: 6px; }
+  .problem-card p { font-size: 14px; color: var(--text-muted); line-height: 1.6; }
+
+  /* SOLUTION / CATEGORIES */
+  .categories-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+  }
+  .cat-card {
+    border-radius: 16px; padding: 2rem;
+    border: 1px solid var(--border);
+    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: default;
+  }
+  .cat-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,0.07); }
+  .cat-card.green { background: var(--green-light); border-color: var(--green-mid); }
+  .cat-card.blue { background: var(--blue-light); border-color: #B5D4F4; }
+  .cat-card.amber { background: #FAEEDA; border-color: #FAC775; }
+  .cat-icon { font-size: 36px; margin-bottom: 1rem; }
+  .cat-card h3 { font-size: 18px; font-weight: 600; margin-bottom: 8px; }
+  .cat-card p { font-size: 14px; line-height: 1.6; color: var(--text-muted); }
+  .cat-tag {
+    display: inline-block; margin-top: 1rem;
+    padding: 4px 12px; border-radius: 20px;
+    font-size: 12px; font-weight: 500;
+  }
+  .cat-card.green .cat-tag { background: var(--green); color: white; }
+  .cat-card.blue .cat-tag { background: var(--blue); color: white; }
+  .cat-card.amber .cat-tag { background: var(--amber); color: white; }
+
+  /* AI FEATURES */
+  .ai-section { background: var(--text); color: white; }
+  .ai-section .section-tag { color: var(--green-mid); }
+  .ai-section .section-title { color: white; }
+  .ai-section .section-sub { color: #9ca3af; }
+  .ai-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px; margin-top: 2.5rem;
+  }
+  .ai-card {
+    background: #ffffff0f; border: 1px solid #ffffff1a;
+    border-radius: 14px; padding: 1.5rem;
+    transition: background 0.2s;
+  }
+  .ai-card:hover { background: #ffffff18; }
+  .ai-card-icon {
+    width: 44px; height: 44px; border-radius: 10px;
+    background: var(--green); display: flex;
+    align-items: center; justify-content: center;
+    font-size: 20px; margin-bottom: 1rem;
+  }
+  .ai-card h3 { font-size: 15px; font-weight: 600; color: white; margin-bottom: 6px; }
+  .ai-card p { font-size: 13px; color: #9ca3af; line-height: 1.6; }
+
+  /* USER JOURNEY */
+  .journey { background: var(--bg-soft); }
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 0; margin-top: 2.5rem;
+    position: relative;
+  }
+  .step {
+    text-align: center; padding: 1.5rem 1rem;
+    position: relative;
+  }
+  .step-num {
+    width: 44px; height: 44px; border-radius: 50%;
+    background: var(--green); color: white;
+    font-family: 'Syne', sans-serif;
+    font-size: 18px; font-weight: 800;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 12px;
+  }
+  .step h4 { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+  .step p { font-size: 13px; color: var(--text-muted); }
+
+  /* IMPACT */
+  .impact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px; margin-top: 2.5rem;
+  }
+  .impact-card {
+    background: var(--green-light);
+    border: 1px solid var(--green-mid);
+    border-radius: 14px; padding: 1.5rem;
+    text-align: center;
+  }
+  .impact-icon { font-size: 32px; margin-bottom: 10px; }
+  .impact-card h3 { font-size: 15px; font-weight: 600; color: var(--green-dark); margin-bottom: 4px; }
+  .impact-card p { font-size: 13px; color: #4b7c63; }
+
+  /* FUTURE */
+  .future { background: var(--bg-soft); }
+  .future-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px; margin-top: 2.5rem;
+  }
+  .future-card {
+    background: white; border: 1px solid var(--border);
+    border-radius: 12px; padding: 1.25rem;
+    display: flex; gap: 12px; align-items: flex-start;
+  }
+  .future-dot {
+    width: 10px; height: 10px; border-radius: 50%;
+    background: var(--green); margin-top: 6px; flex-shrink: 0;
+  }
+  .future-card h4 { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+  .future-card p { font-size: 13px; color: var(--text-muted); }
+
+  /* ABOUT / FOUNDER */
+  .about { text-align: center; padding: 80px 5%; }
+  .founder-card {
+    display: inline-flex; align-items: center; gap: 16px;
+    background: var(--bg-soft); border: 1px solid var(--border);
+    border-radius: 16px; padding: 1.25rem 2rem;
+    margin-top: 2.5rem;
+  }
+  .founder-avatar {
+    width: 52px; height: 52px; border-radius: 50%;
+    background: var(--green); color: white;
+    font-family: 'Syne', sans-serif;
+    font-size: 20px; font-weight: 800;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .founder-info { text-align: left; }
+  .founder-name { font-size: 16px; font-weight: 600; }
+  .founder-role { font-size: 13px; color: var(--text-muted); }
+  .founder-email { font-size: 13px; color: var(--green); text-decoration: none; }
+  .founder-email:hover { text-decoration: underline; }
+
+  /* CTA BANNER */
+  .cta-banner {
+    background: var(--green);
+    padding: 60px 5%;
+    text-align: center;
+  }
+  .cta-banner h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(24px, 4vw, 36px);
+    font-weight: 800; color: white;
+    margin-bottom: 12px;
+  }
+  .cta-banner p { color: #9FE1CB; font-size: 16px; margin-bottom: 2rem; }
+  .btn-white {
+    background: white; color: var(--green);
+    padding: 14px 32px; border-radius: 10px;
+    font-size: 15px; font-weight: 600;
+    text-decoration: none; border: none; cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    transition: transform 0.15s;
+    display: inline-block;
+  }
+  .btn-white:hover { transform: translateY(-2px); }
+
+  /* FOOTER */
+  footer {
+    background: var(--text);
+    color: #9ca3af;
+    padding: 2rem 5%;
+    display: flex; justify-content: space-between;
+    align-items: center; flex-wrap: gap;
+    gap: 12px;
+  }
+  .footer-logo {
+    font-family: 'Syne', sans-serif;
+    font-size: 16px; font-weight: 800;
+    color: white;
+  }
+  .footer-logo span { color: var(--green); }
+  footer p { font-size: 13px; }
+  .footer-founder { font-size: 13px; color: #6b7280; }
+  .footer-founder strong { color: #9ca3af; }
+
+  /* MOBILE */
+  @media (max-width: 640px) {
+    .nav-links { display: none; }
+    .hero-stats { gap: 1.5rem; }
+    footer { flex-direction: column; text-align: center; }
+    .founder-card { flex-direction: column; text-align: center; }
+    .founder-info { text-align: center; }
+  }
+
+  /* SCROLL ANIMATION */
+  .fade-up {
+    opacity: 0; transform: translateY(24px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+  .fade-up.visible { opacity: 1; transform: translateY(0); }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#"><div class="logo-dot"></div>Eco<span>Loop</span> AI</a>
+  <ul class="nav-links">
+    <li><a href="#solution">Solution</a></li>
+    <li><a href="#ai">AI Features</a></li>
+    <li><a href="#impact">Impact</a></li>
+    <li><a href="#about">About</a></li>
+  </ul>
+  <a class="nav-cta" href="#cta">Get early access</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-badge">India's first unified AI marketplace for waste & resale</div>
+  <h1>Smart Shopping.<br/><span class="accent">Smarter Planet.</span></h1>
+  <p>Buy affordable products, sell second-hand items, and trade recyclable waste — all powered by AI. Built for India's students, families, and recyclers.</p>
+  <div class="hero-btns">
+    <a class="btn-primary" href="#solution">See how it works</a>
+    <a class="btn-secondary" href="#cta">Join the waitlist</a>
+  </div>
+  <div class="hero-stats">
+    <div class="stat"><div class="stat-num">62M+</div><div class="stat-label">Tonnes of waste India generates yearly</div></div>
+    <div class="stat"><div class="stat-num">3-in-1</div><div class="stat-label">New · Second-hand · Waste trading</div></div>
+    <div class="stat"><div class="stat-num">4</div><div class="stat-label">Unique AI-powered features</div></div>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section class="problem fade-up">
+  <div class="section-header">
+    <div class="section-tag">The Problem</div>
+    <h2 class="section-title">Why EcoLoop AI needs to exist</h2>
+    <p class="section-sub">Millions of people in India have no simple, trusted way to buy affordably, sell what they don't need, or earn from waste.</p>
+  </div>
+  <div class="problem-grid">
+    <div class="problem-card">
+      <div class="problem-icon">💸</div>
+      <h3>Affordability gap</h3>
+      <p>Students and middle-class families can't always afford new products but have no trusted platform to buy quality second-hand items safely.</p>
+    </div>
+    <div class="problem-card">
+      <div class="problem-icon">🗑️</div>
+      <h3>Waste going to landfills</h3>
+      <p>Reusable products and recyclable waste are thrown away daily because there's no easy way to sell or trade them.</p>
+    </div>
+    <div class="problem-card">
+      <div class="problem-icon">🤖</div>
+      <h3>No AI-powered ecosystem</h3>
+      <p>Existing platforms like OLX only do buying and selling. Nobody combines affordability, resale, and recycling with AI intelligence in one place.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SOLUTION -->
+<section id="solution" class="fade-up">
+  <div class="section-header">
+    <div class="section-tag">Our Solution</div>
+    <h2 class="section-title">One platform. Three powerful sections.</h2>
+    <p class="section-sub">EcoLoop AI brings together everything a buyer, seller, and recycler needs — in one AI-powered marketplace.</p>
+  </div>
+  <div class="categories-grid">
+    <div class="cat-card green">
+      <div class="cat-icon">🛍️</div>
+      <h3>New Products</h3>
+      <p>Discover affordable new products from trusted sellers. AI quality scores help you make smarter buying decisions every time.</p>
+      <span class="cat-tag">For buyers</span>
+    </div>
+    <div class="cat-card blue">
+      <div class="cat-icon">🔄</div>
+      <h3>Second-Hand Items</h3>
+      <p>Buy and sell used products with confidence. AI evaluates condition, suggests fair prices, and flags suspicious listings automatically.</p>
+      <span class="cat-tag">Buy & sell</span>
+    </div>
+    <div class="cat-card amber">
+      <div class="cat-icon">♻️</div>
+      <h3>Recyclable Waste</h3>
+      <p>Turn your plastic, scrap, and e-waste into cash. AI identifies materials from a photo and tells you exactly what it's worth.</p>
+      <span class="cat-tag">Earn from waste</span>
+    </div>
+  </div>
+</section>
+
+<!-- AI FEATURES -->
+<section id="ai" class="ai-section fade-up">
+  <div class="section-header">
+    <div class="section-tag">AI Features</div>
+    <h2 class="section-title">Intelligence built into every step</h2>
+    <p class="section-sub">EcoLoop AI doesn't just list products — it thinks for you, so every transaction is smarter and safer.</p>
+  </div>
+  <div class="ai-grid">
+    <div class="ai-card">
+      <div class="ai-card-icon">⭐</div>
+      <h3>AI Quality Score</h3>
+      <p>Every listing gets an AI quality score out of 10, based on photos, reviews, and seller history.</p>
+    </div>
+    <div class="ai-card">
+      <div class="ai-card-icon">💰</div>
+      <h3>Smart Price Prediction</h3>
+      <p>AI suggests a fair resale price based on product condition, category, and live Indian market data.</p>
+    </div>
+    <div class="ai-card">
+      <div class="ai-card-icon">📷</div>
+      <h3>Waste Material Identifier</h3>
+      <p>Upload a photo of any waste item and AI instantly identifies the material and tells you what it's worth.</p>
+    </div>
+    <div class="ai-card">
+      <div class="ai-card-icon">🛡️</div>
+      <h3>Scam Detection</h3>
+      <p>AI scans every listing for red flags and warns buyers before they fall victim to fake sellers or fraud.</p>
+    </div>
+  </div>
+</section>
+
+<!-- USER JOURNEY -->
+<section class="journey fade-up">
+  <div class="section-header">
+    <div class="section-tag">How It Works</div>
+    <h2 class="section-title">5 simple steps to get started</h2>
+  </div>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <h4>Sign up</h4>
+      <p>Create your free EcoLoop AI account in seconds</p>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <h4>Choose your mode</h4>
+      <p>Switch between buyer and seller at any time</p>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <h4>Search or list</h4>
+      <p>Find products or upload what you want to sell</p>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <h4>AI analyzes</h4>
+      <p>Get instant quality scores, pricing, and safety checks</p>
+    </div>
+    <div class="step">
+      <div class="step-num">5</div>
+      <h4>Transact safely</h4>
+      <p>Buy, sell, or trade with full confidence</p>
+    </div>
+  </div>
+</section>
+
+<!-- SOCIAL IMPACT -->
+<section id="impact" class="fade-up">
+  <div class="section-header">
+    <div class="section-tag">Social Impact</div>
+    <h2 class="section-title">Good for your wallet. Good for India.</h2>
+    <p class="section-sub">EcoLoop AI isn't just a marketplace — it's a movement towards a more sustainable and affordable India.</p>
+  </div>
+  <div class="impact-grid">
+    <div class="impact-card">
+      <div class="impact-icon">🌍</div>
+      <h3>Reduces landfill waste</h3>
+      <p>Every item sold on EcoLoop AI is one less item in a landfill</p>
+    </div>
+    <div class="impact-card">
+      <div class="impact-icon">💚</div>
+      <h3>Builds recycling culture</h3>
+      <p>Makes recycling rewarding and accessible for everyday Indians</p>
+    </div>
+    <div class="impact-card">
+      <div class="impact-icon">🏠</div>
+      <h3>Promotes affordable living</h3>
+      <p>Helps students and families stretch their budgets further</p>
+    </div>
+    <div class="impact-card">
+      <div class="impact-icon">🤝</div>
+      <h3>Empowers small recyclers</h3>
+      <p>Gives scrap dealers and waste collectors a fair digital platform</p>
+    </div>
+  </div>
+</section>
+
+<!-- FUTURE SCOPE -->
+<section class="future fade-up">
+  <div class="section-header">
+    <div class="section-tag">What's Next</div>
+    <h2 class="section-title">The roadmap ahead</h2>
+    <p class="section-sub">EcoLoop AI is just getting started. Here's what's coming next.</p>
+  </div>
+  <div class="future-grid">
+    <div class="future-card">
+      <div class="future-dot"></div>
+      <div>
+        <h4>AI shopping assistant</h4>
+        <p>A conversational AI that helps you find the best deal across all categories</p>
+      </div>
+    </div>
+    <div class="future-card">
+      <div class="future-dot"></div>
+      <div>
+        <h4>Nearby recycler integration</h4>
+        <p>Connect with verified local recyclers and scrap dealers on a map</p>
+      </div>
+    </div>
+    <div class="future-card">
+      <div class="future-dot"></div>
+      <div>
+        <h4>Rewards for recycling</h4>
+        <p>Earn EcoPoints for every waste item sold or recycled on the platform</p>
+      </div>
+    </div>
+    <div class="future-card">
+      <div class="future-dot"></div>
+      <div>
+        <h4>Eco-score tracking</h4>
+        <p>See your personal environmental impact score grow with every transaction</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT / FOUNDER -->
+<section id="about" class="about fade-up">
+  <div class="section-tag">About</div>
+  <h2 class="section-title">Built with a vision for a smarter India</h2>
+  <p class="section-sub" style="margin: 0 auto;">EcoLoop AI was born from a simple observation — that India throws away billions worth of value every day. We believe technology, and specifically AI, can change that. One transaction at a time.</p>
+  <div class="founder-card">
+    <div class="founder-avatar">SY</div>
+    <div class="founder-info">
+      <div class="founder-name">Spurthi Yelipeddi</div>
+      <div class="founder-role">Founder, EcoLoop AI</div>
+      <a class="founder-email" href="https://instagram.com/ecoloop.ai" target="_blank">@ecoloop.ai</a>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section id="cta" class="cta-banner fade-up">
+  <h2>Be the first to use EcoLoop AI</h2>
+  <p>Join the waitlist and get early access when we launch across India.</p>
+  <a class="btn-white" href="https://instagram.com/ecoloop.ai" target="_blank">Join the waitlist →</a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Eco<span>Loop</span> AI</div>
+  <p>© 2026 EcoLoop AI. All rights reserved.</p>
+  <p class="footer-founder">Founded by <strong>Spurthi Yelipeddi</strong></p>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
