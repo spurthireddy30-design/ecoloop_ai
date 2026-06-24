@@ -618,15 +618,56 @@
       <div class="founder-name">Spurthi Yelipeddi</div>
       <div class="founder-role">Founder, EcoLoop AI</div>
       <a class="founder-email" href="https://instagram.com/ecoloop.ai" target="_blank">@ecoloop.ai</a>
+      <a class="founder-email" href="mailto:ecoloopai111@gmail.com" style="display:block; margin-top:3px;">📧 ecoloopai111@gmail.com</a>
     </div>
   </div>
 </section>
 
-<!-- CTA -->
+<!-- CONTACT -->
+<section id="contact" class="fade-up" style="background: var(--bg-soft); padding: 80px 5%;">
+  <div class="section-header" style="text-align:center;">
+    <div class="section-tag">Contact Us</div>
+    <h2 class="section-title">Get in touch</h2>
+    <p class="section-sub" style="margin: 0 auto;">Have a question, suggestion, or want to collaborate? We'd love to hear from you.</p>
+  </div>
+  <div style="max-width: 520px; margin: 2.5rem auto 0; background: white; border: 1px solid var(--border); border-radius: 16px; padding: 2rem;">
+    <div style="margin-bottom: 16px;">
+      <label style="font-size:13px; color: var(--text-muted); display:block; margin-bottom:5px;">Your Name</label>
+      <input id="contactName" type="text" placeholder="Enter your name" style="width:100%; padding: 9px 12px; border: 1px solid var(--border); border-radius: 8px; font-size:14px; font-family:'Inter',sans-serif; outline:none;" />
+    </div>
+    <div style="margin-bottom: 16px;">
+      <label style="font-size:13px; color: var(--text-muted); display:block; margin-bottom:5px;">Your Email</label>
+      <input id="contactEmail" type="email" placeholder="Enter your email" style="width:100%; padding: 9px 12px; border: 1px solid var(--border); border-radius: 8px; font-size:14px; font-family:'Inter',sans-serif; outline:none;" />
+    </div>
+    <div style="margin-bottom: 20px;">
+      <label style="font-size:13px; color: var(--text-muted); display:block; margin-bottom:5px;">Message</label>
+      <textarea id="contactMsg" placeholder="Write your message here..." rows="4" style="width:100%; padding: 9px 12px; border: 1px solid var(--border); border-radius: 8px; font-size:14px; font-family:'Inter',sans-serif; outline:none; resize:vertical;"></textarea>
+    </div>
+    <a id="contactBtn" style="display:block; text-align:center; background: var(--green); color:white; padding: 11px; border-radius: 10px; font-size:15px; font-weight:600; text-decoration:none; cursor:pointer;" onclick="sendContact()">Send Message →</a>
+    <div style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border); display:flex; justify-content:center; gap: 2rem;">
+      <a href="https://instagram.com/ecoloop.ai" target="_blank" style="font-size:13px; color: var(--green); text-decoration:none; font-weight:500;">@ecoloop.ai</a>
+      <a href="mailto:ecoloopai111@gmail.com" style="font-size:13px; color: var(--green); text-decoration:none; font-weight:500;">ecoloopai111@gmail.com</a>
+    </div>
+  </div>
+</section>
+
+<script>
+function sendContact() {
+  const name = document.getElementById('contactName').value.trim();
+  const email = document.getElementById('contactEmail').value.trim();
+  const msg = document.getElementById('contactMsg').value.trim();
+  if(!name || !email || !msg) { alert('Please fill in all fields!'); return; }
+  const subject = encodeURIComponent('EcoLoop AI — Message from ' + name);
+  const body = encodeURIComponent('Name: ' + name + '\nEmail: ' + email + '\n\nMessage:\n' + msg);
+  window.location.href = 'mailto:ecoloopai111@gmail.com?subject=' + subject + '&body=' + body;
+}
+</script>
+
+<!-- CTA BANNER -->
 <section id="cta" class="cta-banner fade-up">
   <h2>Be the first to use EcoLoop AI</h2>
   <p>Join the waitlist and get early access when we launch across India.</p>
-  <a class="btn-white" href="https://instagram.com/ecoloop.ai" target="_blank">Join the waitlist →</a>
+  <a class="btn-white" href="mailto:ecoloopai111@gmail.com?subject=EcoLoop AI Early Access" target="_blank">Join the waitlist →</a>
 </section>
 
 <!-- FOOTER -->
